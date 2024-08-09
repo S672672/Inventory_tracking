@@ -1,39 +1,52 @@
-// server.js
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
 const mongoose = require('mongoose');
-const connectDB = require('./config/db');
-const authRoutes = require('../routes/auth');
-const dotenv = require('dotenv');
-
-dotenv.config(); // Load environment variables
-
+const User = require('./models/User');
+const authRoutes = require('./routes/authRoutes');
 const app = express();
+const cors = require('cors');
 
-// Connect to MongoDB
-connectDB();
 
-// Middleware
+
+//Configure Express
 app.use(express.json());
 
+app.use(cors({
+    origin: '',
+    credentials: true
+  }));
+
+//session middleware
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+
+//  Passport and session
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport configuration
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Routes
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 
-// Welcome Route
-app.get('/', (req, res) => {
-  res.send('Welcome to Inventory Tracking App Backend');
-});
 
-// Start Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
+// Start server
+const PORT = 5001;
+app.listen(PORT,async() => {
   console.log(`Server is running on port ${PORT}`);
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.log("An error occurred: " + error);
-  }
+   try {
+    await  mongoose.connect('');
+    console.log("Connected to mongodb");
+   } catch (error){
+    console.log("An error occured "+error);
+   }
 });
+
+
