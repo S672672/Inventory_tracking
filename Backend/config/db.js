@@ -1,17 +1,20 @@
-// // config/db.js
-// const mongoose = require('mongoose');
+// config/db.js
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-// const connectDB = async () => {
-//   try {
-//     const conn = await mongoose.connect('mongodb+srv://bsmith672:smith12@cluster1.pbr1des.mongodb.net/inventory/inventorytracking', {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     });
-//     console.log(`MongoDB Connected: ${conn.connection.host}`);
-//   } catch (err) {
-//     console.error(`Error: ${err.message}`);
-//     process.exit(1);
-//   }
-// };
+dotenv.config();
 
-// module.exports = connectDB;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB Connected...');
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;
