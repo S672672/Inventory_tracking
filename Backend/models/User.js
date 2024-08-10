@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose'); // Ensure this is installed
 
 // Define user schema
 const userSchema = new mongoose.Schema({
-    firstName: {
+    name: {
         type: String,
-        required: [true, 'First name is required'],
-        trim: true,
-    },
-    lastName: {
-        type: String,
-        required: [true, 'Last name is required'],
+        required: [true, 'Name is required'],
         trim: true,
     },
     email: {
@@ -44,6 +40,9 @@ const userSchema = new mongoose.Schema({
     timestamps: true, // Automatically adds createdAt and updatedAt fields
     versionKey: false  // Disable __v field for versioning
 });
+
+// Apply passport-local-mongoose plugin
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 // Indexing for email and phone number for faster querying
 userSchema.index({ email: 1 });
