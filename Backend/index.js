@@ -13,7 +13,7 @@ const cors = require('cors');
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:5173/',
+    origin: 'http://localhost:5173',
     credentials: true
   }));
 
@@ -43,7 +43,7 @@ const PORT = 5001;
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
   try {
-    await mongoose.connect('mongodb+srv://smithbhattarai12:smith%4012@cluster0.aur5eku.mongodb.net/inventorytracking', {
+    await mongoose.connect('mongodb+srv://smithbhattarai12:smith1234@cluster0.aur5eku.mongodb.net/inventorytracking', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });

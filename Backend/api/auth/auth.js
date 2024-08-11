@@ -12,13 +12,13 @@ const users = [];
 // Sign up route
 app.post('/signup', async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password,number } = req.body;
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Store user data (in memory, replace with database storage)
-        users.push({ username, email, password: hashedPassword });
+        users.push({ username, email, password: hashedPassword,number });
 
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
@@ -29,7 +29,7 @@ app.post('/signup', async (req, res) => {
 // Login route
 app.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password,number } = req.body;
 
         // Find user by email
         const user = users.find(u => u.email === email);
