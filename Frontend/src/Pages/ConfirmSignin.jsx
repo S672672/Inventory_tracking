@@ -1,21 +1,51 @@
 import { useState } from "react";
+import axios from "axios";
 import Navout from "./components/navout";
 
 export default function ConfirmSignin() {
-  const [Name, setName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [number, setNumber] = useState("");
   const [extraNumber, setExtraNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Phone:", phone);
-    console.log("Extra Number:", extraNumber);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
-  };
+
+    // Prepare the data object with only necessary state values
+    const data = {
+        name: name,
+        email: email,
+        number: number,
+        password: password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:5001/auth/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+        if (!response.ok) {
+            // Handle HTTP errors
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Something went wrong');
+        }
+
+        // Parse JSON response
+        const responseData = await response.json();
+        console.log('Response:', responseData);
+
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+};
+
+    
 
   return (
     <>
@@ -33,7 +63,7 @@ export default function ConfirmSignin() {
             type="text"
             id="Name"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={Name}
+            value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -63,8 +93,8 @@ export default function ConfirmSignin() {
             type="text"
             id="phone"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
           />
         </div>
         <div className="mb-4">
@@ -119,8 +149,8 @@ export default function ConfirmSignin() {
             type="password"
             id="confirm-password"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <div className="flex items-center justify-end">
             <i className="fas fa-eye text-gray-500 cursor-pointer"></i>
@@ -159,4 +189,4 @@ export default function ConfirmSignin() {
     </div>
     </>
   );
-}
+  }
