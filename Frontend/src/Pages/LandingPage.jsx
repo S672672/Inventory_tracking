@@ -46,6 +46,7 @@ export default function LandingPage() {
         <Grilling photo='./src/assets/pictures/dessert.jpg' details='eat dessert and be like hazzard' />
         <Grilling photo='./src/assets/pictures/dessert.jpg' details='eat dessert and be like hazzard' />
         <Grilling photo='./src/assets/pictures/dessert.jpg' details='eat dessert and be like hazzard' />
+        <Grilling photo = './src/assets/pictures/britinia.jpg' detais='taste the new cake in the marker'/>
       </div>
       <div className='flex items-center justify-center gap-8 my-4 mx-20'>
         <div>
