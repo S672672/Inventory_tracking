@@ -9,6 +9,7 @@ export default function yourItems({photo,name,desc,price}) {
         <div className='w-full font bold'>{name}</div>
         <div className='font-bold text-xl'>{desc}</div>
         <div className='font-bold text-xl'>{price}</div>
+        <div className='font-bold text-xl'>{price}</div>
         </div>
         </div>
     </>
