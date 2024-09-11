@@ -22,7 +22,7 @@ export default function ConfirmSignin() {
     };
 
     try {
-      const response = await fetch('', {
+      const response = await fetch('https://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
