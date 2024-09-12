@@ -43,7 +43,7 @@ const PORT = 5001;
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
   try {
-    await mongoose.connect('mongodb+srv://smithbhattarai12:smith1234@cluster0.aur5eku.mongodb.net/inventorytracking', {
+    await mongoose.connect('mongodb+srv://smithbhattarai12:smith123@mycluster.neqp2.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
