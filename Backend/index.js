@@ -1,57 +1,33 @@
 const express = require('express');
-const session = require('express-session');
-const passport = require('passport');
 const mongoose = require('mongoose');
-const User = require('./models/User');
-const authRoutes = require('./routes/authRoutes');
+const bodyParser = require('body-parser');
+const cors = require('cors')
+const authRoutes = require('./routes/auth');
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/errorHandler');
+require('dotenv').config();
+connectDB()
+
 const app = express();
-const cors = require('cors');
+const corsOptions = {
+    origin: 'http://localhost:5173', // Allow requests from this origin
+    methods: 'GET,POST,PUT,DELETE', // Allowed methods
+    allowedHeaders: 'Content-Type,Authorization' // Allowed headers
+  };
 
+// Middleware
+app.use(bodyParser.json());
+// Routes
+app.use(cors(corsOptions))
+app.use('/api/auth', authRoutes);
 
-
-//Configure Express
 app.use(express.json());
 
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
-  }));
 
-//session middleware
-app.use(session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: false
-}));
+// Connect to MongoDB
+app.use(errorHandler);
 
-//  Passport and session
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Passport configuration
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-
-// Routes
-app.use('/auth', authRoutes);
-
-
-// Start server
-const PORT = 5001;
-app.listen(PORT, async () => {
-  console.log(`Server is running on port ${PORT}`);
-  try {
-    await mongoose.connect('mongodb+srv://smithbhattarai12:smith123@mycluster.neqp2.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.log("An error occurred: " + error);
-  }
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-
-
