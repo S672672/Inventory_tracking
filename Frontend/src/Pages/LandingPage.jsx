@@ -12,6 +12,7 @@ import Modal from './components/Modal';
 import Login from './Login';
 import Signup from './Signup';
 import { NavLink } from 'react-router-dom';
+import ConfirmSignin from './ConfirmSignin';
 
 export default function LandingPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function LandingPage() {
         <Login />
       </Modal>
       <Modal show={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}>
-        <Signup/>
+        <ConfirmSignin/>
       </Modal>
     </div>
   );
