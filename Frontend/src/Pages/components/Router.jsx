@@ -6,6 +6,7 @@ import ConfirmSignin from "../ConfirmSignin";
 import InsideWeeklyad from "../InsideWeeklyad";
 import InWeekly from "../inweekly";
 import GrillingPage from "../GrillingPage";
+import ReviewCart from "../ReviewCart";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     {
       path:'/grillingpage',
       element:<GrillingPage />
+    },
+    {
+      path:'/reviewcart',
+      element:<ReviewCart />
     }
   ]);
   

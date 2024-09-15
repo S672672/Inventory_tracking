@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Navout from './components/navout';
 import Advert from './components/advert';
 import Heading from './components/heading';
@@ -11,7 +11,7 @@ import Footer from './components/Footer';
 import Modal from './components/Modal';
 import Login from './Login';
 import Signup from './Signup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import ConfirmSignin from './ConfirmSignin';
 
 export default function LandingPage() {
@@ -20,16 +20,36 @@ export default function LandingPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState('');
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodeToken = (token) => {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload;
+      };
+      
+      const userInfo = decodeToken(token);
+      setIsLoggedIn(true);
+      setName(userInfo.name);
+    }
+  }, []);
+
   const handleLogin = (name) => {
     setIsLoggedIn(true);
     setName(name);
     setIsLoginModalOpen(false);
   };
+  
+  // const handleLogout = () => {
+  //   setIsLoggedIn(false);
+  //   setName('');
+  // };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setName('');
+    localStorage.removeItem('token'); // Assuming you're storing the token in localStorage
+    window.location.href = '/'; // Redirect to login page
   };
+  
 
   return (
     <div className='flex flex-col'>
@@ -82,6 +102,8 @@ export default function LandingPage() {
       <Modal show={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}>
         <ConfirmSignin />
       </Modal>
+      <Outlet />
     </div>
+
   );
 }
