@@ -46,8 +46,8 @@ export default function LandingPage() {
   // };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Assuming you're storing the token in localStorage
-    window.location.href = '/'; // Redirect to login page
+    localStorage.removeItem('token');
+    window.location.href = '/';
   };
   
 

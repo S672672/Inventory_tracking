@@ -9,6 +9,7 @@ export default function Weeklyad({
   unit,
   quantity,
   additionalInfo,
+  loggedIn
 }) {
   return (
     <NavLink to = 'inweekly'>
@@ -22,9 +23,15 @@ export default function Weeklyad({
           className="object-contain"
         />
       </div>
-      <button className="mt-4 px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-400">
-        Log In to Add
-      </button>
+      {loggedIn ? (
+          <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
+            Add to Cart
+          </button>
+        ) : (
+          <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
+            Log In to Add
+          </button>
+        )}
       <div className="mt-4">
         <h3 className="text-lg font-medium text-gray-800">{title}</h3>
         <p className="text-xl font-bold text-red-500">

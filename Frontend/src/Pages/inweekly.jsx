@@ -10,7 +10,7 @@ export default function InWeekly() {
     <>
     <Navout />
     <div className='flex flex-col items-centre justify-center mx-20'>
-    <InWeeklyprop image='./src/assets/pictures/momo.jpg' description='The best ever production of the weekly ad' totallb='3.4lb' perlb='$3/lb' price='$11.2'/>
+    <InWeeklyprop image='./src/assets/pictures/momo.jpg' description='The best ever production of the weekly ad' totallb='3.4lb' perlb='$3/lb' price='$11.2' loggedIn={true}/>
     <Weekly ad='suggested item'/>
     <div className='mb-10'>
     <WeeklyadContainer />
