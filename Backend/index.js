@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use(cors(corsOptions))
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 app.use(express.json());
 
