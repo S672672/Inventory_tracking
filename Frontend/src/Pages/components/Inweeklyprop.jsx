@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function InWeeklyprop({image,description,perlb,price,totallb,loggedIn}) {
+export default function InWeeklyprop({image,description,perlb,price,totallb,loggedIn,onLoginClick}) {
   return (
     <div className="flex items-center justify-center gap-10 m-10">
       <div className='h-1/2 w-auto border-2 border-gray-400'>
@@ -29,7 +30,7 @@ export default function InWeeklyprop({image,description,perlb,price,totallb,logg
             Add to Cart
           </button>
         ) : (
-          <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
+          <button onClick={onLoginClick} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
             Log In to Add
           </button>
         )}

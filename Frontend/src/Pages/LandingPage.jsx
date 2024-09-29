@@ -97,7 +97,7 @@ export default function LandingPage() {
       <Modal show={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}>
         <Login onLogin={handleLogin} />
       </Modal>
-
+      
       {/* Signup Modal */}
       <Modal show={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}>
         <ConfirmSignin />

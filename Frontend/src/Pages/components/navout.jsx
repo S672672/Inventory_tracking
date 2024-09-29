@@ -82,6 +82,5 @@ export default function Navout({
       </nav>
       <Cart isVisible={isCartVisible} onClose={() => setIsCartVisible(false)} />
       </>
-    
   );
 }
