@@ -1,88 +1,56 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config'); 
 
-// Registration Controller
-exports.registerUser = async (req, res) => {
-  const { name, gmail, number, referralCode, password } = req.body;
+const register = async (req, res) => {
+  const { username, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  if (!name || !gmail || !number || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
-
+  const user = new User({ username, email, password: hashedPassword });
   try {
-    const existingUser = await User.findOne({ gmail });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User with this email already exists' });
-    }
-
-    const existingNumber = await User.findOne({ number });
-    if (existingNumber) {
-      return res.status(400).json({ message: 'User with this phone number already exists' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-      name,
-      gmail,
-      number,
-      referralCode,
-      password: hashedPassword,
-    });
-
-    await newUser.save();
-    
+    await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    console.error('Error:', error); 
-    if (error.code === 11000) { 
-      const field = Object.keys(error.keyPattern)[0];
-      return res.status(400).json({ message: `Duplicate key error: ${field}` });
-    }
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
-// Login Controller with JWT
-exports.loginUser = async (req, res) => {
-  const { gmail, password } = req.body;
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ gmail });
-    if (!user) {
-      return res.status(400).json({ message: 'User not found' });
+    
+    if (email === config.ADMIN_EMAIL && password === config.ADMIN_PASSWORD) {
+     
+      const token = jwt.sign({ isAdmin: true }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      return res.json({ token, isAdmin: true });
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    const token = jwt.sign(
-      { id: user._id, name: user.name, gmail: user.gmail },
-      process.env.JWT_SECRET, 
-      { expiresIn: '1h' } 
-    );
 
     
-    const { name, gmail: userGmail, number, referralCode } = user;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
    
-    res.status(200).json({
-      message: 'Login successful',
-      user: { name, gmail: userGmail, number, referralCode },
-      token, 
-    });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const token = (user) => {
+      return jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+      });
+    };
+
+    res.json({ token, isAdmin: user.isAdmin });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Logout Controller
-exports.logoutUser = (req, res) => {
-  res.clearCookie('token'); 
-  res.status(200).json({ message: 'Logout successful' });
-};
-
-
-
+module.exports = { register, login };
