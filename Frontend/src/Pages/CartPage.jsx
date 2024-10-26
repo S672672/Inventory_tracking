@@ -9,7 +9,6 @@ const Cart = () => {
     return <p>Your cart is empty.</p>;
   }
 
-  // Calculate total price
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (

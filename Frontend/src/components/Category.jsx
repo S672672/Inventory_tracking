@@ -21,7 +21,7 @@ const ShopByCategory = () => {
   return (
     <section className="container mx-auto my-16">
       <h2 className="text-4xl font-bold text-center mb-12">Shop by Category</h2>
-      <div className="flex overflow-x-auto space-x-4">
+      <div className="flex overflow-x-auto space-x-4 items-center justify-center">
      
         <Link
           to="/products" 

@@ -1,164 +1,43 @@
 import React from 'react';
+import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
     return (
-        <footer className="bg-red-500 text-white py-8">
+        <footer className="bg-gradient-to-r from-red-500 to-red-700 text-white py-10">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between">
+                {/* Shop Name */}
+                <h1 className="text-4xl font-extrabold text-center mb-6">
+                    Your Shop Name
+                </h1>
+
+                <div className="flex flex-col md:flex-row justify-between items-start text-center md:text-left">
                     <div className="mb-4 md:mb-0">
-                        <h2 className="text-xl font-bold mb-4">About us</h2>
-                        <ul>
-                            <li className='hover:underline cursor-pointer'>Overview</li>
-                            <li className='hover:underline cursor-pointer'>Our Story</li>
-                            <li className='hover:underline cursor-pointer'>Our Purpose</li>
-                            <li className='hover:underline cursor-pointer'>Our Brands</li>
-                            <li className='hover:underline cursor-pointer'>Careers</li>
-                            <li className='hover:underline cursor-pointer'>Leadership</li>
+                        <h2 className="text-2xl font-semibold mb-2">Explore</h2>
+                        <ul className="space-y-2">
+                            <li className='hover:underline cursor-pointer transition-all duration-200'>Home</li>
+                            <li className='hover:underline cursor-pointer transition-all duration-200'>Products</li>
+                            <li className='hover:underline cursor-pointer transition-all duration-200'>Contact Us</li>
                         </ul>
                     </div>
+
                     <div className="mb-4 md:mb-0">
-                        <h2 className="text-xl font-bold mb-4">Explore</h2>
-                        <ul>
-                            <li className='cursor-pointer hover:underline'>Store Locator</li>
-                            <li className='cursor-pointer hover:underline'>How to Shop Online</li>
-                            <li className='cursor-pointer hover:underline'>Wellness</li>
-                            <li className='cursor-pointer hover:underline'>News</li>
-                            <li className='cursor-pointer hover:underline'>Vendors</li>
-                            <li className='cursor-pointer hover:underline'>Gift Cards</li>
-                        </ul>
-                    </div>
-                    <div className="mb-4 md:mb-0">
-                        <h2 className="text-xl font-bold mb-4">Our Community</h2>
-                        <ul>
-                            <li className='cursor-pointer hover:underline'>Giving</li>
-                            <li className='cursor-pointer hover:underline'>Community Giving</li>
-                            <li className='cursor-pointer hover:underline'>Crisis Response</li>
-                            <li className='cursor-pointer hover:underline'>Food for Families</li>
-                            <li className='cursor-pointer hover:underline'>Extra Credit Grants</li>
-                            <li className='cursor-pointer hover:underline'>Event Centers</li>
-                        </ul>
-                    </div>
-                    <div className="mb-4 md:mb-0">
-                        <h2 className="text-xl font-bold mb-4">Download Our App</h2>
-                        <div className="flex space-x-4">
-                            <a
-                                href="#"
-                                className="bg-white text-gray-800 font-bold py-2 px-4 rounded"
-                            >
-                                GET IT ON
-                                <br />
-                                <img src="/google-play.svg" alt="Google Play" />
+                        <h2 className="text-2xl font-semibold mb-2">Follow Us</h2>
+                        <div className="flex justify-center md:justify-start space-x-4">
+                            <a href="#" className="text-white hover:text-red-200 transition-all duration-200">
+                                <FaFacebookF size={25} />
                             </a>
-                            <a
-                                href="#"
-                                className="bg-white text-gray-800 font-bold py-2 px-4 rounded"
-                            >
-                                Download on the
-                                <br />
-                                <img src="/app-store.svg" alt="App Store" />
+                            <a href="#" className="text-white hover:text-red-200 transition-all duration-200">
+                                <FaInstagram size={25} />
+                            </a>
+                            <a href="#" className="text-white hover:text-red-200 transition-all duration-200">
+                                <FaYoutube size={25} />
                             </a>
                         </div>
-                        <h2 className="text-xl font-bold mb-4 mt-4 cursor-pointer hover:underline">Follow Us</h2>
-                        <div className="flex space-x-4">
-                            <a href="#" className="text-white">
-                                <i className="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" className="text-white">
-                                <i className="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" className="text-white">
-                                <i className="fab fa-youtube"></i>
-                            </a>
-                            <a href="#" className="text-white">
-                                <i className="fab fa-linkedin-in"></i>
-                            </a>
-                        </div>
-                        <h2 className="text-xl font-bold mb-4 mt-4 hover:underline cursor-pointer">
-                            Questions? We're here to help.
-                        </h2>
-                        <ul>
-                            <li>
-                                <a href="#" className="text-white hover:underline cursor-pointer">
-                                    <i className="fas fa-info-circle"></i> Help Center
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="text-white hover:underline cursor-pointer">
-                                    <i className="fas fa-comment-dots"></i> Live Chat Offline
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
-                <div className="mt-8 text-center">
-                    <p className="text-sm">
-                        © 2023 All Rights Reserved
-                    </p>
-                    <p className="text-sm mt-2">
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Supply Chain Disclosures
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Transparency in Health Care
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Privacy Policy
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            CCPA/CPRA FAQ
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Fraud Reporting
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Terms of Use
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Accessibility
-                        </a>
-                        {' | '}
-                        <a
-                            href="#"
-                            className="text-white hover:underline"
-                            rel="noopener noreferrer"
-                        >
-                            Cookie Preferences
-                        </a>
-                    </p>
+
+                <div className="mt-6 text-center border-t border-red-400 pt-4">
+                    <p className="text-sm">© 2023 All Rights Reserved</p>
                 </div>
             </div>
         </footer>

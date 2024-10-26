@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="border rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105 bg-white">
       <img
-        src={product.image || '/placeholder-image.jpg'} // Fallback for missing image
+        src={product.image || '/placeholder-image.jpg'} 
         alt={product.name}
         className="h-40 w-full object-cover rounded-t-lg"
       />

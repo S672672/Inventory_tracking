@@ -90,7 +90,7 @@ const AdminProductList = () => {
 
   return (
     <div>
-      {/* Category Filter */}
+
       <div className="flex justify-center my-4">
         <div className="flex flex-wrap gap-2">
           <button
@@ -111,7 +111,6 @@ const AdminProductList = () => {
         </div>
       </div>
 
-      {/* Product List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {filteredProducts.map((product) => (
           <div key={product._id} className="border rounded-lg overflow-hidden shadow-md">
@@ -146,7 +145,6 @@ const AdminProductList = () => {
         ))}
       </div>
 
-      {/* Modal for Editing Product */}
       <Modal isOpen={!!editingProduct} onClose={() => setEditingProduct(null)}>
         <h3 className="text-xl mb-4">Edit Product</h3>
         <form onSubmit={handleUpdate}>
@@ -166,7 +164,7 @@ const AdminProductList = () => {
             className="border rounded p-2 mb-2 w-full"
             required
           />
-          <textarea
+          <textareaS
             placeholder="Description"
             value={productData.description}
             onChange={(e) => setProductData({ ...productData, description: e.target.value })}

@@ -8,6 +8,9 @@ const categoryRoutes = require('./routes/category.routes');
 const cartRoutes = require('./routes/cart.routes');
 const { PORT } = require('./config/config');
 const {seedCategories} = require('./seeds/seed')
+const cakeRoutes = require('./routes/cake.routes')
+const {seedCakes} = require('./seeds/SeedCakes')
+const path = require('path')
 
 
 const app = express();
@@ -24,8 +27,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api', cakeRoutes);
 app.use(errorHandler); 
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+seedCakes();
 seedCategories();
 
 app.get('/', (req, res) => {
