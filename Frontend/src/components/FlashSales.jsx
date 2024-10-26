@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export default function FlashSaleCard() {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
-  // Timer function to update countdown
   useEffect(() => {
     const countdownDate = new Date().setHours(new Date().getHours() + 12);
     const interval = setInterval(() => {
@@ -22,15 +21,15 @@ export default function FlashSaleCard() {
   }, []);
 
   return (
-    <div className='flex flex-col items-center justify-center text-center'>
+    <div className='flex flex-col items-center justify-center text-center mb-10'>
       <p className='text-4xl font-extrabold text-gray-600 mb-2 font-serif tracking-tight mb-10'>Time Limited Offer</p>
-      <div className="relative w-[50vw] h-[50vh] rounded-3xl p-8 text-center bg-gradient-to-br from-red-500 to-red-700 shadow-lg transform transition-transform duration-500 hover:scale-105 flex flex-col justify-between overflow-hidden animate-float">
+      <div className="relative w-[60vw] h-[70vh] rounded-3xl p-8 text-center bg-gradient-to-br from-red-500 to-red-700 shadow-lg transform transition-transform duration-500 hover:scale-105 flex flex-col justify-between overflow-hidden animate-float">
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-yellow-300 rounded-full opacity-20 animate-pulse"></div>
       <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-400 rounded-full opacity-20 animate-ping"></div>
-        {/* Animated Bubbles */}
+        
         <div className="absolute inset-0">
           <div className="bubbles">
-            {/* Add more bubbles */}
+            
             <div className="bubble bubble-1"></div>
             <div className="bubble bubble-2"></div>
             <div className="bubble bubble-3"></div>
@@ -49,7 +48,7 @@ export default function FlashSaleCard() {
           </div>
         </div>
 
-        {/* Flash Sale Content */}
+       
         <div className="relative z-10">
           <h2 className="text-4xl font-extrabold text-white mb-2 font-serif tracking-tight animate-bounceIn">
              Special Sale on Delicacies
@@ -57,7 +56,7 @@ export default function FlashSaleCard() {
           <p className="text-lg text-white mb-4 font-semibold animate-bounceIn delay-200">Indulge in Limited-Time Offers and Sweet Treats!</p>
         </div>
         
-        {/* Countdown Timer */}
+       
         <div className="flex justify-center gap-4 mb-4 z-10">
           {Object.entries(timeLeft).map(([unit, value]) => (
             <div key={unit} className="p-2 bg-red-200 border-2 border-red-300 rounded-lg shadow-lg transform transition-transform duration-300 animate-bounce hover:scale-105">
@@ -67,10 +66,10 @@ export default function FlashSaleCard() {
           ))}
         </div>
 
-        {/* Action Button */}
+      
         <div className="flex justify-center z-10">
           <Link
-            to="/products"
+            to="/accessory"
             className="relative bg-white text-red-600 py-1 px-4 w-48 rounded-full shadow-lg overflow-hidden transition-all duration-300 hover:bg-red-100 hover:shadow-2xl"
           >
             <span className="relative z-10 text-lg font-bold">Browse Now</span>
@@ -79,7 +78,6 @@ export default function FlashSaleCard() {
         </div>
       </div>
 
-      {/* CSS for Bubbles */}
       <style jsx>{`
         .bubbles {
           position: absolute;

@@ -13,6 +13,8 @@ import AdminUserCarts from './Admin/AdminUserCart';
 import AdminAddProduct from './Admin/AdminAddProduct';
 import AdminProductList from './Admin/AdminProductList';
 import CakesPage from '../Pages/cakePage';
+import CategoryProductList from './Category';
+import AccessoryPage from '../Pages/AccessoryPage';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,9 @@ const router = createBrowserRouter([
       { path: '/profile', element: <Profile /> },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <Signup /> },
-      {path:'/cakes',element:<CakesPage />}
+      {path:'/cakes',element:<CakesPage />},
+      {path:'/categoryproduct', element:<CategoryProductList />},
+      {path:'/accessory',element:<AccessoryPage />}
     ],
   },
 

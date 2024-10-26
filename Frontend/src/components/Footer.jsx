@@ -5,9 +5,8 @@ export default function Footer() {
     return (
         <footer className="bg-gradient-to-r from-red-500 to-red-700 text-white py-10">
             <div className="container mx-auto px-4">
-                {/* Shop Name */}
                 <h1 className="text-4xl font-extrabold text-center mb-6">
-                    Your Shop Name
+                    Our Own Mart
                 </h1>
 
                 <div className="flex flex-col md:flex-row justify-between items-start text-center md:text-left">

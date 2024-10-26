@@ -116,7 +116,7 @@ const AdminProductList = () => {
           <div key={product._id} className="border rounded-lg overflow-hidden shadow-md">
             {product.image && (
               <img
-                src={product.image}
+                src={`http://localhost:5000/uploads/${product.image}`}
                 alt={product.name}
                 className="w-full h-32 object-cover"
               />

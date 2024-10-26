@@ -1,4 +1,4 @@
-// cakesData.js
+
 module.exports = [
     {
         name: 'Chocolate Cake',

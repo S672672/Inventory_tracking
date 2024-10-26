@@ -10,6 +10,8 @@ const { PORT } = require('./config/config');
 const {seedCategories} = require('./seeds/seed')
 const cakeRoutes = require('./routes/cake.routes')
 const {seedCakes} = require('./seeds/SeedCakes')
+const accessoryRoutes = require('./routes/accessory.routes')
+const {seedAccessory} = require('./seeds/SeedAccessory')
 const path = require('path')
 
 
@@ -28,12 +30,14 @@ app.use('/api/products', productRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api', cakeRoutes);
+app.use('/api',accessoryRoutes);
 app.use(errorHandler); 
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 seedCakes();
 seedCategories();
+seedAccessory();
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Grocery Management API!');

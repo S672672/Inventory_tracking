@@ -25,7 +25,8 @@ const ProductList = () => {
   };
 
   return (
-    <section className="container mx-auto my-16">
+    <section className="container mx-auto my-16 flex flex-col items-center justify-center">
+    <div className='font-bold text-2xl text-gray-600'>Our Products</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {allProducts.slice(0, visibleProducts).map((product) => (
           <ProductCard key={product._id} product={product} />

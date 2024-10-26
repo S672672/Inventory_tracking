@@ -16,7 +16,7 @@ export default function ShowCase() {
       if (!isHovered) {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images.length + 1));
       }
-    }, 3000); // Change image every 3 seconds for a slower transition
+    }, 2000); // Change image every 3 seconds for a slower transition
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, [images.length, isHovered]);
@@ -29,7 +29,7 @@ export default function ShowCase() {
     setIsHovered(false);
   };
 
-  // Adjusted index for the sliding transition
+
   const adjustedIndex = currentImageIndex >= images.length ? 0 : currentImageIndex;
 
   return (
@@ -53,13 +53,13 @@ export default function ShowCase() {
             style={{
               position: 'absolute',
               top: 0,
-              left: `${(index - adjustedIndex) * 100}%`, // Adjust position based on index
+              left: `${(index - adjustedIndex) * 100}%`, 
               width: '100%',
               height: '100%',
               backgroundImage: `url(${image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              transition: 'left 1.5s ease-in-out', // Increased transition duration for smoothness
+              transition: 'left 1.5s ease-in-out', 
             }}
           ></div>
         ))}

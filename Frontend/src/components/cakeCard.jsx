@@ -14,7 +14,7 @@ const CakeCard = ({ cake }) => {
             <p className="text-sm text-gray-600 mb-2">Size: {cake.size}</p>
             <p className="text-gray-700 mb-4">{cake.description}</p>
             <p className="text-lg font-semibold text-gray-800 mb-4">${cake.price.toFixed(2)}</p>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">
                 Add to the cart
             </button>
         </div>

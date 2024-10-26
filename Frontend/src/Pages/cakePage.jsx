@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios'; 
 import CakeCard from '../components/cakeCard';
 
 export default function CakesPage() {
@@ -8,9 +8,9 @@ export default function CakesPage() {
     useEffect(() => {
         const fetchCakes = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/cakes'); // Use Axios to fetch
+                const response = await axios.get('http://localhost:5000/api/cakes');
                 setCakes(response.data);
-                console.log(response.data)// Set the data from response directly
+                console.log(response.data)
             } catch (error) {
                 console.error('Error fetching cakes:', error);
             }
