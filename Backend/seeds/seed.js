@@ -12,16 +12,14 @@ const categories = [
 
 const seedCategories = async () => {
   try {
-    
-    await Category.deleteMany({});
-
-   
-    await Category.insertMany(categories);
-
-    console.log('Categories seeded successfully!');
+      for (const category of categories) {
+          await Category.updateOne({ name: category.name }, category, { upsert: true });
+      }
+      console.log('Categories seeded successfully!');
   } catch (error) {
-    console.error('Error seeding categories:', error);
+      console.error('Error seeding categories:', error);
   }
 };
+
 
 module.exports = { seedCategories }; 

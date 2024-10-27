@@ -5,7 +5,6 @@ export default function BirthdayOfferCard() {
   return (
     <div className="w-1/2 h-auto rounded-2xl shadow-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white p-10 flex flex-col justify-between items-center mx-auto mb-10 mt-2 relative overflow-hidden bg-cover bg-center h-[60vh]"
          style={{ backgroundImage: 'url("./src/assets/pictures/birthday.gif")', opacity: 0.9 }}>
-      {/* Content */}
       <div className="text-center">
         <h2 className="text-4xl font-extrabold mb-4 drop-shadow-md">
           🎂 Exclusive Cake Celebration 🎂

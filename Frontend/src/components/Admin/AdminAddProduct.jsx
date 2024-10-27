@@ -42,7 +42,7 @@ function AdminAddProduct() {
       const token = localStorage.getItem('token');
       console.log("Token being sent:", token);
 
-      const response = await axios.post('http://localhost:5000/api/products/', formData, {
+      const response = await axios.post('http://localhost:5000/api/products/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`,

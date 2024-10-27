@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="border rounded-lg p-4 shadow-lg bg-white flex flex-col items-center justify-center">
       <img
-        src={product.image || '/placeholder-image.jpg'} 
+        src={`http://localhost:5000/uploads/${product.image}`} 
         alt={product.name}
         className="h-40 w-full object-cover rounded-t-lg"
       />
