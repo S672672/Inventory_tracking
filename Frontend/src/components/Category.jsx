@@ -69,7 +69,7 @@ export default function CategoryProductList() {
           <div key={product._id} className="border rounded-lg overflow-hidden shadow-md">
             {product.image && (
               <img
-                src={`http://localhost:5000/uploads/${product.image}`}
+                src={`http://localhost:5000/${product.image}`}
                 alt={product.name}
                 className="w-full h-32 object-cover" />
             )}

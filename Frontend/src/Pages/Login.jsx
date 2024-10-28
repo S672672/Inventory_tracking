@@ -31,7 +31,7 @@ const Login = () => {
       
       setTimeout(() => {
         if (isAdmin) {
-          navigate('/Admin');
+          navigate('/Admin/dashboard');
         } else {
           navigate('/');
         }

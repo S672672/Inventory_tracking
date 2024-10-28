@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
@@ -15,7 +16,9 @@ export default function Footer() {
                         <ul className="space-y-2">
                             <li className='hover:underline cursor-pointer transition-all duration-200'>Home</li>
                             <li className='hover:underline cursor-pointer transition-all duration-200'>Products</li>
+                            <Link to = '/contact'>
                             <li className='hover:underline cursor-pointer transition-all duration-200'>Contact Us</li>
+                            </Link>
                         </ul>
                     </div>
 

@@ -10,17 +10,23 @@ const AdminProductList = () => {
     price: '',
     description: '',
     category: '',
+    image: null, // Add image state
   });
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [loading, setLoading] = useState(false); // Loading state
+  const [errorMessage, setErrorMessage] = useState(''); // Error message state
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true); // Start loading
       try {
         const response = await axios.get('http://localhost:5000/api/products');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products', error);
+      } finally {
+        setLoading(false); // Stop loading
       }
     };
 
@@ -38,6 +44,9 @@ const AdminProductList = () => {
   }, []);
 
   const handleDelete = async (productId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (!confirmDelete) return;
+  
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`http://localhost:5000/api/products/${productId}`, {
@@ -47,9 +56,11 @@ const AdminProductList = () => {
       });
       setProducts(products.filter((product) => product._id !== productId));
     } catch (error) {
+      setErrorMessage('Error deleting product'); // Show error message
       console.error('Error deleting product', error);
     }
   };
+  
 
   const handleEdit = (product) => {
     setEditingProduct(product);
@@ -58,21 +69,29 @@ const AdminProductList = () => {
       price: product.price,
       description: product.description,
       category: product.category ? product.category._id : '',
+      image: null, // Reset image for editing
     });
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const updatedData = { ...productData };
-    if (!productData.category) {
-      delete updatedData.category;
+    const formData = new FormData();
+    formData.append('name', productData.name);
+    formData.append('price', productData.price);
+    formData.append('description', productData.description);
+    if (productData.category) {
+      formData.append('category', productData.category);
+    }
+    if (productData.image) {
+      formData.append('image', productData.image);
     }
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/products/${editingProduct._id}`, updatedData, {
+      await axios.put(`http://localhost:5000/api/products/${editingProduct._id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data', // Required for file uploads
         },
       });
 
@@ -80,6 +99,7 @@ const AdminProductList = () => {
       setProducts(response.data);
       setEditingProduct(null);
     } catch (error) {
+      setErrorMessage('Error updating product'); // Show error message
       console.error('Error updating product', error.response ? error.response.data : error);
     }
   };
@@ -90,6 +110,8 @@ const AdminProductList = () => {
 
   return (
     <div>
+      {loading && <div>Loading...</div>}
+      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
 
       <div className="flex justify-center my-4">
         <div className="flex flex-wrap gap-2">
@@ -116,7 +138,7 @@ const AdminProductList = () => {
           <div key={product._id} className="border rounded-lg overflow-hidden shadow-md">
             {product.image && (
               <img
-                src={`http://localhost:5000/uploads/${product.image}`}
+                src={`http://localhost:5000/${product.image}`}
                 alt={product.name}
                 className="w-full h-32 object-cover"
               />
@@ -164,12 +186,17 @@ const AdminProductList = () => {
             className="border rounded p-2 mb-2 w-full"
             required
           />
-          <textareaS
+          <textarea
             placeholder="Description"
             value={productData.description}
             onChange={(e) => setProductData({ ...productData, description: e.target.value })}
             className="border rounded p-2 mb-2 w-full"
             required
+          />
+          <input
+            type="file"
+            onChange={(e) => setProductData({ ...productData, image: e.target.files[0] })}
+            className="border rounded p-2 mb-2 w-full"
           />
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
             Update Product

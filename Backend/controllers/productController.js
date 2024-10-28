@@ -1,4 +1,6 @@
 const Product = require('../models/Product');
+const path = require('path')
+const fs = require('fs');
 
 const addProduct = async (req, res) => {
   const { name, price, description, category } = req.body;
@@ -41,11 +43,30 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.status(204).json({ message: 'Product deleted successfully' });
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    const imagePath = path.join(__dirname, '../uploads', path.basename(product.image));
+    
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error('Error deleting image:', err);
+        return res.status(500).json({ message: 'Error deleting image' });
+      }
+      Product.findByIdAndDelete(req.params.id)
+        .then(() => {
+          res.status(204).json({ message: 'Product deleted successfully' });
+        })
+        .catch((error) => {
+          res.status(500).json({ message: 'Error deleting product from database' });
+        });
+    });
   } catch (error) {
+    console.error('Error deleting product:', error);
     res.status(400).json({ message: error.message });
   }
 };
+
 
 module.exports = { addProduct, getProducts, updateProduct, deleteProduct };

@@ -1,12 +1,21 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    // Load cart items from localStorage on initial render
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  // Save cart items to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product, quantity) => {
-    if (quantity <= 0) return; 
+    if (quantity <= 0) return;
 
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item._id === product._id);
@@ -18,7 +27,8 @@ export const CartProvider = ({ children }) => {
             item._id === product._id ? { ...item, quantity: newQuantity } : item
           );
         } else {
-          alert('Cannot add more items than available in stock');
+          // Notify user in a user-friendly way
+          console.log('Cannot add more items than available in stock');
           return prevItems; 
         }
       }

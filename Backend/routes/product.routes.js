@@ -6,7 +6,7 @@ const multer = require('../config/multer');
 
 const router = express.Router();
 
-router.post('/', auth, admin, multer.single('image'), addProduct); 
+router.post('/create', auth, admin, multer.single('image'), addProduct); 
 router.get('/', getProducts); 
 router.put('/:id', auth, admin, multer.single('image'), updateProduct); 
 router.delete('/:id', auth, admin, deleteProduct); 

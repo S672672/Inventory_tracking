@@ -34,7 +34,7 @@ app.use('/api',accessoryRoutes);
 app.use(errorHandler); 
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/uploads', express.static('uploads'));
 
 seedCakes();
 seedCategories();
