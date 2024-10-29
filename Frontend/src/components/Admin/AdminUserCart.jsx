@@ -1,62 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AdminUserCarts = () => {
-  const [carts, setCarts] = useState([]);
+export default function AdminUserCarts() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCarts = async () => {
+    const fetchUsers = async () => {
       try {
-        
-        const response = await axios.get('http://localhost:5000/api/cart/admin/carts');
-        console.log(response.data);
-        setCarts(response.data); 
+        const response = await axios.get('http://localhost:5000/api/auth/users', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setUsers(response.data);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching user carts', error);
+        console.error('Error fetching users:', error);
+        setLoading(false);
       }
     };
-    fetchCarts();
+
+    fetchUsers();
   }, []);
 
-  return (
-    <div className="container mx-auto my-8">
-      <h1 className="text-3xl font-bold mb-4">User Carts</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b-2">User Name</th>
-              <th className="py-2 px-4 border-b-2">Email</th>
-              <th className="py-2 px-4 border-b-2">Items in Cart</th>
-            </tr>
-          </thead>
-          <tbody>
-            {carts.map((cart) => (
-              <tr key={cart.user._id}>
-                
-                <td className="border py-2 px-4">{cart.user.name}</td>
-                <td className="border py-2 px-4">{cart.user.email}</td>
+  const handleDelete = async (userId) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      try {
+        await axios.delete(`http://localhost:5000/api/auth/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setUsers(users.filter(user => user._id !== userId)); // Update state after deletion
+        alert('User deleted successfully.');
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Could not delete user. Please try again.');
+      }
+    }
+  };
 
-                
-                <td className="border py-2 px-4">
-                  {cart.items && cart.items.length > 0 ? (
-                    cart.items.map((item) => (
-                      <div key={item.product._id} className="mb-2">
-                        <span className="font-medium">{item.product.name}</span> - 
-                        <span className="text-gray-700 ml-1">Qty: {item.quantity}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No items in cart</p>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  if (loading) return <div className='flex items-center justify-center'><img src='./src/assets/pictures/loading.gif' alt="Loading" /></div>;
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6 text-center">Users List</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {users.map(user => (
+          <div key={user._id} className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center">
+            <img
+              src={`http://localhost:5000/${user.profileImage}`}
+              alt="Profile"
+              className="w-24 h-24 rounded-full border-2 border-gray-300 mb-4" />
+            <h2 className="text-xl font-semibold">{user.username}</h2>
+            <p className="text-gray-600">{user.email}</p>
+            <p className="text-gray-400">{user.isAdmin ? 'Role: Admin' : 'Role: User'}</p>
+            <button
+              onClick={() => handleDelete(user._id)}
+              className="mt-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition"
+            >
+              Delete User
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
-};
-
-export default AdminUserCarts;
+}
