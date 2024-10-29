@@ -11,7 +11,7 @@ const CakeCard = ({ cake }) => {
         }
         
         try {
-            const response = await axios.post('http://localhost:5000/api/add-cart', {
+            const response = await axios.post('http://localhost:5000/api/cart', {
                 cakeId: cake._id,
                 quantity: 1
             }, {

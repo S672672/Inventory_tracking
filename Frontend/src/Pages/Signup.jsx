@@ -3,14 +3,19 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [file, setFile] = useState(null); // State for the profile picture
   const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Set the selected file
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -20,11 +25,20 @@ function Signup() {
       return;
     }
 
+    // Create FormData to include file upload
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    if (file) {
+      formData.append('profileImage', file); // Append the profile image
+    }
+
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
-        username,
-        email,
-        password,
+      const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       toast.success('Signup successful! Redirecting to profile...', { position: "top-center" });
@@ -75,6 +89,16 @@ function Signup() {
             id="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            required />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profileImage">Profile Picture</label>
+          <input
+            type="file"
+            id="profileImage"
+            accept="image/*"
+            onChange={handleFileChange}
             className="w-full p-2 border border-gray-300 rounded-md"
             required />
         </div>

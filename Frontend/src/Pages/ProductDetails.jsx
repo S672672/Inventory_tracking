@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
 
-const ProductDetails = () => {
+export default function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -48,8 +48,7 @@ const ProductDetails = () => {
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
               className="border px-4 py-2 w-20"
-              min="1"
-            />
+              min="1" />
             <button
               onClick={handleAddToCart}
               className="bg-green-500 text-white px-4 py-2 ml-4 rounded"
@@ -61,6 +60,4 @@ const ProductDetails = () => {
       </div>
     </div>
   );
-};
-
-export default ProductDetails;
+}

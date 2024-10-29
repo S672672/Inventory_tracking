@@ -7,12 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Added loading state
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
   
+    setLoading(true); // Set loading to true before making the request
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
         email,
@@ -20,15 +21,16 @@ const Login = () => {
       });
   
       const { token, isAdmin } = response.data;
-  
-    
+
       localStorage.setItem('token', token);
       localStorage.setItem('isAdmin', isAdmin);
   
-    
       toast.success('Login successful! Redirecting...', { position: "top-center" });
   
-      
+      // Clear input fields
+      setEmail('');
+      setPassword('');
+
       setTimeout(() => {
         if (isAdmin) {
           navigate('/Admin/dashboard');
@@ -39,6 +41,8 @@ const Login = () => {
   
     } catch (error) {
       toast.error(error.response ? error.response.data.message : 'Login failed', { position: "top-center" });
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
   
@@ -69,8 +73,12 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500 transition-all">
-          Login
+        <button 
+          type="submit" 
+          className={`w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500 transition-all ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+          disabled={loading} // Disable button while loading
+        >
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
       <p className="mt-4 text-center">
