@@ -1,4 +1,4 @@
-// controllers/cakeController.js
+
 const Cake = require('../models/Cake');
 
 exports.getCakes = async (req, res) => {

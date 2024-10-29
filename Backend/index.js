@@ -36,6 +36,7 @@ app.use(errorHandler);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/uploads', express.static('uploads'));
 
+
 seedCakes();
 seedCategories();
 seedAccessory();

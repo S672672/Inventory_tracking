@@ -1,4 +1,4 @@
-// controllers/cakeController.js
+
 const Accessory = require('../models/Accessory');
 
 exports.getAccessory = async (req, res) => {
