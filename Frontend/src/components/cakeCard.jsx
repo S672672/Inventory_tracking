@@ -1,34 +1,22 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { addToCart } from '../Api/Api';
+
 
 const CakeCard = ({ cake }) => {
     const [addedToCart, setAddedToCart] = useState(false);
 
     const handleAddToCart = async () => {
-        if (cake.stock <= 0) {
-            alert('Sorry, this cake is out of stock.');
-            return;
-        }
-        
         try {
-            const response = await axios.post('http://localhost:5000/api/cart', {
-                cakeId: cake._id,
-                quantity: 1
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-
-            if (response.data.success) {
-                setAddedToCart(true);
-                setTimeout(() => setAddedToCart(false), 2000);
-            }
+          await addToCart(cake._id);
+          alert('Item added to cart!');
         } catch (error) {
-            console.error("Error adding to cart:", error);
-            alert("Could not add item to cart. Please try again.");
+          console.error('Error adding to cart:', error);
+          if (error.response.status === 401) {
+            alert('You need to log in first!');
+            // Redirect to login page or show login modal
+          }
         }
-    };
+      };
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 m-4 w-full max-w-xs transform transition duration-500 hover:scale-105">

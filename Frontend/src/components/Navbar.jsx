@@ -46,12 +46,14 @@ const Navbar = ({ cartItems = [] }) => {
           <Link to="/" className="text-gray-700 hover:text-green-600 transition duration-300">Home</Link>
           <Link to="/categoryproduct" className="text-gray-700 hover:text-green-600 transition duration-300">Products</Link>
           <div className="relative">
+         <Link to = '/testcart'>
             <button
               onClick={toggleCartModal}
               className="text-gray-700 hover:text-green-600 transition duration-300"
             >
               Cart ({cartItems.length})
             </button>
+            </Link>
             {showCartMessage && (
               <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-gradient-to-r from-red-400 to-red-600 text-white text-sm p-2 rounded-lg shadow-lg flex items-center space-x-2 w-48 z-10">
                 <span className="font-semibold">⚠️ Please log in first to add and view your cart!</span>

@@ -1,13 +1,18 @@
-
 import React, { useContext } from 'react';
-import { CartContext } from '../context/CartContext'; 
+import axios from 'axios';
+import { CartContext } from '../context/CartContext';
+import { useCart } from '../context/CartContext'; 
+import { addToCart } from '../Api/Api';
 
 export default function AccessoryCard({ accessory }) {
-    const { addToCart } = useContext(CartContext);
-
-    const handleAddToCart = () => {
-        addToCart(accessory, 1);
-    };
+    const handleAddToCart = async () => {
+        try {
+          await addToCart(accessory._id);
+          alert('Item added to cart!');
+        } catch (error) {
+          console.error('Error adding to cart:', error);
+        }
+      };
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 m-4 w-full max-w-xs transform transition duration-500 hover:scale-105">

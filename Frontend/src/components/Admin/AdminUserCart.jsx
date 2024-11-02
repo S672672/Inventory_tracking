@@ -32,7 +32,7 @@ export default function AdminUserCarts() {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        setUsers(users.filter(user => user._id !== userId)); // Update state after deletion
+        setUsers(users.filter(user => user._id !== userId)); 
         alert('User deleted successfully.');
       } catch (error) {
         console.error('Error deleting user:', error);

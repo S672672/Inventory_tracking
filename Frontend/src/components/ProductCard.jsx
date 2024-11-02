@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { addToCart } from '../Api/Api';
 import axios from 'axios';
 
 const ProductCard = ({ product, onAddToCart }) => {
@@ -7,25 +8,17 @@ const ProductCard = ({ product, onAddToCart }) => {
 
   const handleAddToCart = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/cart', {
-        productId: product._id,
-        quantity: 1
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-
-      if (response.data.success) {
-        setAddedToCart(true);
-        onAddToCart(); // Optional: update global or parent state
-        setTimeout(() => setAddedToCart(false), 2000); // Show success message briefly
-      }
+      await addToCart(product._id);
+      alert('Item added to cart!');
     } catch (error) {
       console.error('Error adding to cart:', error);
-      // Optionally handle error (e.g., show a message to the user)
+      if (error.response.status === 401) {
+        alert('You need to log in first!');
+        // Redirect to login page or show login modal
+      }
     }
   };
+
 
   return (
     <div className="border rounded-lg p-4 shadow-lg bg-white flex flex-col items-center justify-center">

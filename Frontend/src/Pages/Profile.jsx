@@ -31,6 +31,31 @@ const Profile = () => {
         fetchUserProfile();
     }, []);
 
+    const handleUpdateInfo = async () => {
+        try {
+            const updatedData = {
+                username: newName || user.username,
+                email: newEmail || user.email,
+            };
+            await axios.put('http://localhost:5000/api/auth/profile', updatedData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            setUser(prev => ({
+                ...prev,
+                username: updatedData.username,
+                email: updatedData.email,
+            }));
+            alert('Profile updated successfully!');
+            setIsEditing(false); 
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('Could not update profile. Please try again.');
+        }
+    };
+
+
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
@@ -66,7 +91,7 @@ const Profile = () => {
             console.error('Error updating profile picture:', error);
             alert('Could not update profile picture. Please try again.');
         } finally {
-            setIsUploading(false); // Reset loading state regardless of success or error
+            setIsUploading(false);
         }
     };
 

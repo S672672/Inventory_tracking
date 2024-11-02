@@ -16,6 +16,7 @@ import CakesPage from "../Pages/cakePage";
 import CategoryProductList from "./Category";
 import AccessoryPage from "../Pages/AccessoryPage";
 import ContactUs from "../Pages/ContactPage";
+import TestCart from "../Pages/TestCart";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/products", element: <ProductList /> },
       { path: "/product/:productId", element: <ProductDetails /> },
       { path: "/cart", element: <Cart /> },
+      {path:'testcart', element:<TestCart />},
       { path: "/profile", element: <Profile /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
-const CartModal = ({ isOpen, onClose, cartItems }) => {
+const CartModal = ({ isOpen, onClose,cartItems, onRemove }) => {
   const navigate = useNavigate();
 
   return (
@@ -36,7 +37,10 @@ const CartModal = ({ isOpen, onClose, cartItems }) => {
                   <p className="text-gray-800 font-semibold">{item.name}</p>
                   <p className="text-gray-500">${item.price.toFixed(2)}</p>
                 </div>
-                <button className="text-red-500 hover:text-red-700 font-semibold focus:outline-none">
+                <button
+                  onClick={() => onRemove(item._id)} // Call onRemove with item's ID
+                  className="text-red-500 hover:text-red-700 font-semibold focus:outline-none"
+                >
                   Remove
                 </button>
               </div>

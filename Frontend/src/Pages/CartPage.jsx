@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import CartItem from '../components/CartItem';
-import { CartContext } from '../context/CartContext';
+import { useCart } from '../context/CartContext';
 
 const Cart = () => {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  // const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems } = useCart();
+  
+  console.log('Rendering cart with items:', cartItems);// Make sure removeFromCart is defined
 
   if (cartItems.length === 0) {
     return <p>Your cart is empty.</p>;

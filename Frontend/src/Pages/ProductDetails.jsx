@@ -14,7 +14,7 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`/api/products/${productId}`);
+        const res = await axios.get(`http://localhost:5000/api/products/${productId}`);
         setProduct(res.data);
       } catch (err) {
         setError('Failed to fetch product details. Please try again later.');
