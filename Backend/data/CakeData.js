@@ -1,5 +1,6 @@
 module.exports = [
     {
+        id: 1,
         name: 'Chocolate Cake',
         flavor: 'Chocolate',
         size: 'Medium',
@@ -8,6 +9,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 2,
         name: 'Vanilla Bean Cake',
         flavor: 'Vanilla',
         size: 'Large',
@@ -16,6 +18,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 3,
         name: 'Red Velvet Cake',
         flavor: 'Red Velvet',
         size: 'Small',
@@ -24,6 +27,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 4,
         name: 'Strawberry Shortcake',
         flavor: 'Strawberry',
         size: 'Medium',
@@ -32,6 +36,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 5,
         name: 'Lemon Drizzle Cake',
         flavor: 'Lemon',
         size: 'Medium',
@@ -40,6 +45,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 6,
         name: 'Carrot Cake',
         flavor: 'Carrot',
         size: 'Large',
@@ -48,6 +54,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 7,
         name: 'Black Forest Cake',
         flavor: 'Chocolate Cherry',
         size: 'Large',
@@ -56,6 +63,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 8,
         name: 'Funfetti Cake',
         flavor: 'Vanilla Funfetti',
         size: 'Small',
@@ -64,6 +72,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 9,
         name: 'Mocha Cake',
         flavor: 'Coffee Chocolate',
         size: 'Medium',
@@ -72,6 +81,7 @@ module.exports = [
         imageUrl: 'http://localhost:5000/images/Cakes/chocolate.jpeg'
     },
     {
+        id: 10,
         name: 'Pineapple Upside Down Cake',
         flavor: 'Pineapple',
         size: 'Medium',

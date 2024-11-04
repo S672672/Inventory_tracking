@@ -6,17 +6,17 @@ const CakeCard = ({ cake }) => {
     const [addedToCart, setAddedToCart] = useState(false);
 
     const handleAddToCart = async () => {
-        try {
-          await addToCart(cake._id);
-          alert('Item added to cart!');
-        } catch (error) {
-          console.error('Error adding to cart:', error);
-          if (error.response.status === 401) {
-            alert('You need to log in first!');
-            // Redirect to login page or show login modal
-          }
-        }
-      };
+      try {
+        
+        const response = await addToCart(cake._id, 'Cake');
+        console.log('Item added to cart:', response);
+        
+      } catch (error) {
+        console.error('Error adding item to cart:', error.message);
+     
+      }
+    }
+    
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 m-4 w-full max-w-xs transform transition duration-500 hover:scale-105">

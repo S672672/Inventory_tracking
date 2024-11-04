@@ -1,53 +1,53 @@
-const API_URL = 'http://localhost:5000/api/cart';
+const API_URL = 'http://localhost:5000/api/cakecart';
 
 const getAuthToken = () => {
-  return localStorage.getItem('token'); 
+  // Replace this with your method of retrieving the auth token
+  return localStorage.getItem('token'); // Example using localStorage
 };
 
-export const addToCart = async (itemId, itemType) => {
+export const addToCart = async (cakeId) => {
   const token = getAuthToken();
   const response = await fetch(`${API_URL}/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, 
+      'Authorization': `Bearer ${token}`, // Include token in headers
     },
-    body: JSON.stringify({ itemId, itemType }), 
+    body: JSON.stringify({ cakeId }),
   });
 
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || 'Failed to add item to cart');
   }
-  return await response.json(); 
+  return await response.json(); // Returns the updated cart data
 };
 
-export const getCart = async () => {
+export const getCakeCart = async () => {
   const token = getAuthToken();
   return await fetch(`${API_URL}/get-cart`, {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${token}`, // Include token in headers
+      'Content-Type': 'application/json', // Ensure content type is set
     },
   }).then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
+    return response.json(); // Parse JSON response
   });
 };
 
-export const removeFromCart = async (itemId, itemType) => { 
+
+export const removeFromCart = async (cakeId) => {
   const token = getAuthToken();
 
-  const response = await fetch(`${API_URL}/remove`, { 
+  const response = await fetch(`${API_URL}/item/${cakeId}`, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${token}`, // Include token in headers
     },
-    body: JSON.stringify({ itemId, itemType }), 
   });
 
   if (!response.ok) {
@@ -55,7 +55,7 @@ export const removeFromCart = async (itemId, itemType) => {
     throw new Error(errorData.message || 'Failed to remove item from cart');
   }
 
-  return await response.json();
+  return await response.json(); // Returns updated cart
 };
 
 export const clearCart = async () => {
@@ -64,8 +64,7 @@ export const clearCart = async () => {
   const response = await fetch(`${API_URL}/clear`, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${token}`, // Include token in headers
     },
   });
 
@@ -74,5 +73,5 @@ export const clearCart = async () => {
     throw new Error(errorData.message || 'Failed to clear cart');
   }
 
-  return await response.json(); 
+  return await response.json(); // Returns confirmation message or updated cart
 };

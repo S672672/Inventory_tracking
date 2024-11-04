@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../Api/Api';
-import axios from 'axios';
 
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product }) => {
   const [addedToCart, setAddedToCart] = useState(false);
 
   const handleAddToCart = async () => {
     try {
-      await addToCart(product._id);
-      alert('Item added to cart!');
+      
+      const response = await addToCart(product._id, 'Product');
+      console.log('Item added to cart:', response);
+      
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      if (error.response.status === 401) {
-        alert('You need to log in first!');
-        // Redirect to login page or show login modal
-      }
+      console.error('Error adding item to cart:', error.message);
+      
     }
-  };
-
+  }
 
   return (
     <div className="border rounded-lg p-4 shadow-lg bg-white flex flex-col items-center justify-center">

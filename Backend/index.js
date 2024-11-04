@@ -13,6 +13,8 @@ const {seedCakes} = require('./seeds/SeedCakes')
 const accessoryRoutes = require('./routes/accessory.routes')
 const {seedAccessory} = require('./seeds/SeedAccessory')
 const path = require('path')
+const cakeCartRoutes = require('./routes/cakeCart.routes')
+const accessoryCartRoutes = require('./routes/accessoryCart.routes')
 
 
 const app = express();
@@ -29,6 +31,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api/cart', cartRoutes);
+// app.use('/api/cakecart', cakeCartRoutes);
+// app.use('/api/accessorycart', accessoryCartRoutes);
 app.use('/api', cakeRoutes);
 app.use('/api',accessoryRoutes);
 app.use(errorHandler); 
