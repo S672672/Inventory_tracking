@@ -6,12 +6,15 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
-  profileImage: { type: String }, 
+  profileImage: { type: String },
   cart: [
     {
       itemId: { type: mongoose.Schema.Types.ObjectId, required: true }, // ID of the item (could be Product, Cake, or Accessory)
       itemType: { type: String, required: true, enum: ["Product", "Cake", "Accessory"] }, // Type of item
       quantity: { type: Number, default: 1 },
+      name: { type: String },       // Add name field
+      price: { type: Number },      // Add price field
+      description: { type: String }
     },
   ],
 });

@@ -76,3 +76,15 @@ export const clearCart = async () => {
 
   return await response.json(); 
 };
+
+// Example API function
+export const updateCartItem = async (itemId, itemType, quantity) => {
+  return fetch(`${API_URL}/update`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ itemId, itemType, quantity }),
+  });
+};
+

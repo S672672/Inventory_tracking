@@ -62,6 +62,7 @@ export default function AdminUserCarts() {
             >
               Delete User
             </button>
+            <div className='text-blue-400 underline cursor-pointer hover:text-green-400'>View cart</div>
           </div>
         ))}
       </div>
