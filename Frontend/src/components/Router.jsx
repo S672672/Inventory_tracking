@@ -17,6 +17,8 @@ import CategoryProductList from "./Category";
 import AccessoryPage from "../Pages/AccessoryPage";
 import ContactUs from "../Pages/ContactPage";
 import TestCart from "../Pages/TestCart";
+import SearchResultsPage from "../Pages/SearchResultPage";
+import AdminUserCartDetails from "./Admin/AdminUserCartDetails";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,8 @@ const router = createBrowserRouter([
       { path: "/cakes", element: <CakesPage /> },
       { path: "/categoryproduct", element: <CategoryProductList /> },
       { path: "/accessory", element: <AccessoryPage /> },
-      {path:'/contact' , element:<ContactUs />}
+      {path:'/contact' , element:<ContactUs />},
+      {path:'/search-results',element:<SearchResultsPage />}
     ],
   },
 
@@ -46,6 +49,7 @@ const router = createBrowserRouter([
       { path: "products", element: <AdminProductList /> },
       { path: "add-products", element: <AdminAddProduct /> },
       { path: "user-carts", element: <AdminUserCarts /> },
+      {path:"getUserCart/:userId",element:<AdminUserCartDetails/>}
     ],
   },
 ]);

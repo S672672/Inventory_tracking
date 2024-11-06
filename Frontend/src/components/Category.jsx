@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Offerheading from './Offerheading';
+import {addToCart} from '../Api/Api';
+import ProductCard from './ProductCard';
 
 export default function CategoryProductList() {
   const [products, setProducts] = useState([]);
@@ -32,10 +34,22 @@ export default function CategoryProductList() {
     fetchCategories();
   }, []);
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-    alert(`${product.name} has been added to your cart!`);
-  };
+  // const addToCart = (product) => {
+  //   setCart([...cart, product]);
+  //   alert(`${product.name} has been added to your cart!`);
+  // };
+
+  const handleAddToCart = async () => {
+    try {
+      
+      const response = await addToCart(product._id, 'Product');
+      console.log('Item added to cart:', response);
+      
+    } catch (error) {
+      console.error('Error adding item to cart:', error.message);
+      
+    }
+  }
 
   const filteredProducts = selectedCategory === 'All'
     ? products
@@ -66,7 +80,9 @@ export default function CategoryProductList() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {filteredProducts.map((product) => (
-          <div key={product._id} className="border rounded-lg overflow-hidden shadow-md">
+          <ProductCard key={product._id} product={product} />
+        ))}
+          {/* <div key={product._id} className="border rounded-lg overflow-hidden shadow-md">
             {product.image && (
               <img
                 src={`http://localhost:5000/${product.image}`}
@@ -87,14 +103,13 @@ export default function CategoryProductList() {
                 </button>
                 <button
                   className="bg-red-600 text-white px-4 py-2 rounded mr-2"
-                  onClick={() => addToCart(product)}
+                  onClick={handleAddToCart}
                 >
                   Add to Cart
                 </button>
               </div>
             </div>
-          </div>
-        ))}
+          </div> */}
       </div>
     </div>
   );

@@ -68,5 +68,20 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const getProductDetails = async (req, res) => {
+  const { id } = req.params; // Get the product ID from the URL params
+  try {
+    const product = await Product.findById(id); // Assuming you are using MongoDB and Mongoose
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
-module.exports = { addProduct, getProducts, updateProduct, deleteProduct };
+
+
+module.exports = { addProduct, getProducts, updateProduct, deleteProduct,getProductDetails };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 export default function AdminUserCarts() {
   const [users, setUsers] = useState([]);
@@ -62,7 +63,9 @@ export default function AdminUserCarts() {
             >
               Delete User
             </button>
-            <div className='text-blue-400 underline cursor-pointer hover:text-green-400'>View cart</div>
+            <NavLink to = {`/admin/getUserCart/${user._id}`}>
+            <div className='text-blue-400 underline cursor-pointer hover:text-green-400'>View Details</div>
+            </NavLink>
           </div>
         ))}
       </div>

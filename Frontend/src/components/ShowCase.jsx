@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function ShowCase() {
+export default function ShowCase({setSearchQuery}) {
   const images = [
     './src/assets/pictures/bhatbhateni1.jpg',
     './src/assets/pictures/bhatbhateni.jpeg',
@@ -31,6 +32,13 @@ export default function ShowCase() {
 
 
   const adjustedIndex = currentImageIndex >= images.length ? 0 : currentImageIndex;
+
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+    setSearchQuery(e.target.value);
+  }
 
   return (
     <div
@@ -70,11 +78,13 @@ export default function ShowCase() {
         </h1>
         <div className="flex flex-col lg:flex-row items-center gap-5 lg:mx-10 mx-5">
           <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
             className="w-full lg:w-96 h-16 lg:ml-0 ml-5 rounded-xl flex items-center justify-center pl-5"
             type="text"
             placeholder="Enter the product you want"
           />
-          <button className="bg-yellow-400 hover:bg-orange-500 text-black font-bold py-3 px-6 rounded-full text-lg mt-5 lg:mt-0">
+          <button className="bg-yellow-400 hover:bg-orange-500 text-black font-bold py-3 px-6 rounded-full text-lg mt-5 lg:mt-0" onClick={handleSearch}>
             Search
           </button>
         </div>

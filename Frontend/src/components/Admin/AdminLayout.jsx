@@ -16,9 +16,9 @@ const AdminLayout = () => {
   };
   
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white">
+      <aside className="fixed top-0 left-0 w-64 bg-gray-800 text-white h-full">
         <nav className="flex flex-col h-full p-4 space-y-4">
           <NavLink
             to="/admin/dashboard"
@@ -79,7 +79,7 @@ const AdminLayout = () => {
         </nav>
       </aside>
 
-      <div className="flex-1 p-6 bg-gray-100">
+      <div className="flex-1 ml-64 p-6 bg-gray-100 overflow-auto">
         <Outlet />
       </div>
     </div>

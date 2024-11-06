@@ -48,10 +48,10 @@ const Navbar = ({ cartItems = [] }) => {
           <div className="relative">
          <Link to = '/testcart'>
             <button
-              onClick={toggleCartModal}
+              onClick=''
               className="text-gray-700 hover:text-green-600 transition duration-300"
             >
-              Cart ({cartItems.length})
+              Cart
             </button>
             </Link>
             {showCartMessage && (

@@ -51,6 +51,7 @@ const TestCart = () => {
         return item;
       });
       setCartItems(updatedCart);
+      alert('Item quantity updated')
       await updateCartItem(itemId, itemType, updatedCart.find(item => item.itemId === itemId && item.itemType === itemType).quantity);
     } catch (err) {
       setError(err.message);
@@ -73,6 +74,11 @@ const TestCart = () => {
     }
   };
 
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   if (loading) {
     return <div className="text-center py-4">Loading...</div>;
   }
@@ -94,7 +100,9 @@ const TestCart = () => {
                 <div className="flex-1">
                   <h2 className="text-lg font-semibold">{item.name}</h2>
                   <p className="text-gray-600">{item.description}</p>
-                  <span className="text-gray-800 font-bold">${item.price.toFixed(2)}</span>
+                  <span className="text-gray-800 font-bold">
+                    ${ (item.price * item.quantity).toFixed(2) }
+                  </span>
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => decrementQuantity(item.itemId, item.itemType)}
@@ -120,6 +128,9 @@ const TestCart = () => {
               </li>
             ))}
           </ul>
+          <div className="text-right font-bold text-xl mt-4">
+            Total Price: ${totalPrice.toFixed(2)}
+          </div>
           <button
             className="mt-4 w-full bg-red-600 text-white py-2 rounded hover:bg-red-700"
             onClick={handleClearCart}

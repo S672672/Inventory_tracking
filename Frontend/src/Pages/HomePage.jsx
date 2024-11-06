@@ -1,5 +1,6 @@
 // src/pages/Home.js
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ShopByCategory from '../components/Category';
 import ProductList from './ProductList';

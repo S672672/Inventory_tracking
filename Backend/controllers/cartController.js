@@ -126,7 +126,7 @@ const getCart = async (req, res) => {
         };
       })
     );
-    
+    console.log(user)
 
     return res.json({ cart: cartItems });
   } catch (error) {
@@ -204,7 +204,8 @@ const updateCartItem = async (req, res) => {
       user.cart = user.cart.filter((item) => item !== cartItem); // Remove item
     }
 
-    await user.save(); // Save changes to the user document
+    await user.save();
+    console.log("Updated cart:", user.cart); // Save changes to the user document
     return res
       .status(200)
       .json({ message: "Cart item updated", cart: user.cart });
@@ -213,6 +214,7 @@ const updateCartItem = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
 
 module.exports = {
   addToCart,

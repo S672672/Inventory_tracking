@@ -123,5 +123,19 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getUserAllDetails = async (req, res) => {
+  const { id } = req.params; // Get the product ID from the URL params
+  try {
+    const user = await User.findById(id); // Assuming you are using MongoDB and Mongoose
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
-module.exports = { register, login, getUserProfile,upload,updateUserProfile,getAllUsers,deleteUser };
+
+module.exports = { register, login, getUserProfile,upload,updateUserProfile,getAllUsers,deleteUser,getUserAllDetails };
