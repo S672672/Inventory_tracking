@@ -7,13 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
   
-    setLoading(true); // Set loading to true before making the request
+    setLoading(true); 
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
         email,
@@ -42,7 +42,7 @@ const Login = () => {
     } catch (error) {
       toast.error(error.response ? error.response.data.message : 'Login failed', { position: "top-center" });
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
   
@@ -76,7 +76,7 @@ const Login = () => {
         <button 
           type="submit" 
           className={`w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500 transition-all ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
-          disabled={loading} // Disable button while loading
+          disabled={loading} 
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>

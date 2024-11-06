@@ -7,7 +7,7 @@ export default function Footer() {
         <footer className="bg-gradient-to-r from-red-500 to-red-700 text-white py-10">
             <div className="container mx-auto px-4">
                 <h1 className="text-4xl font-extrabold text-center mb-6">
-                    Our Own Mart
+                𝓗𝓪𝓶𝓻𝓸 𝓜𝓪𝓻𝓽
                 </h1>
 
                 <div className="flex flex-col md:flex-row justify-between items-start text-center md:text-left">

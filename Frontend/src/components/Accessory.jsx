@@ -9,9 +9,11 @@ export default function AccessoryCard({ accessory }) {
     try {
       const response = await addToCart(accessory._id, 'Accessory');
       console.log('Item added to cart:', response);
+      alert("Item added to the cart");
      
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
+      alert("error adding item to the cart");
     }
   }
 

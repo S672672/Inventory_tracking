@@ -51,7 +51,7 @@ const TestCart = () => {
         return item;
       });
       setCartItems(updatedCart);
-      alert('Item quantity updated')
+      alert('Item quantity updated');
       await updateCartItem(itemId, itemType, updatedCart.find(item => item.itemId === itemId && item.itemType === itemType).quantity);
     } catch (err) {
       setError(err.message);
@@ -91,19 +91,34 @@ const TestCart = () => {
     <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold text-center mb-4">Your Cart</h1>
       {cartItems.length === 0 ? (
-        <p className="text-center text-gray-500">Your cart is empty.</p>
+        <div className="flex flex-col items-center justify-center">
+          <p className="text-center text-gray-500">Your cart is empty.</p>
+          <img src='./src/assets/pictures/empty.jpg' alt="Empty Cart" />
+        </div>
       ) : (
         <div>
           <ul className="space-y-4">
             {cartItems.map((item) => (
               <li key={item.itemId} className="flex justify-between items-start p-4 border rounded-lg shadow-sm">
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold">{item.name}</h2>
-                  <p className="text-gray-600">{item.description}</p>
-                  <span className="text-gray-800 font-bold">
-                    ${ (item.price * item.quantity).toFixed(2) }
-                  </span>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex space-x-4">
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-24 h-24 object-cover rounded-full"
+                        style={{ border: '1px solid black' }}
+                      />
+                    )}
+                    <div>
+                      <h2 className="text-lg font-semibold">{item.name}</h2>
+                      <p className="text-gray-600">{item.description}</p>
+                      <span className="text-gray-800 font-bold">
+                        ${ (item.price * item.quantity).toFixed(2) }
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2 mt-2">
                     <button
                       onClick={() => decrementQuantity(item.itemId, item.itemType)}
                       className="bg-gray-300 text-gray-800 px-2 rounded"

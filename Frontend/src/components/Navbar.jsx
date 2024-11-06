@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import CartModal from './CartModal';
-import LogoutModal from './LogoutModal';
+import { Link, NavLink, useNavigate} from 'react-router-dom';
+import { FaShoppingCart, FaHome, FaBox, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import LogoutModal from "../components/LogoutModal";
 
-const Navbar = ({ cartItems = [] }) => {
+
+const Navbar = ({ cartItems = [], onSearch }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const [showCartModal, setShowCartModal] = useState(false);
   const [showCartMessage, setShowCartMessage] = useState(false);
   const navigate = useNavigate();
 
+
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem('token'));
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!localStorage.getItem('token'));
+    };
+
+ 
+    window.addEventListener('storage', handleStorageChange);
+    
+  
+    handleStorageChange();
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -29,29 +42,61 @@ const Navbar = ({ cartItems = [] }) => {
     setShowLogoutConfirm(false);
   };
 
-  const toggleCartModal = () => {
+  const toggleCartMessage = () => {
     if (!isLoggedIn) {
       setShowCartMessage(true);
-      setTimeout(() => setShowCartMessage(false), 5000); 
-      return;
+      setTimeout(() => setShowCartMessage(false), 5000);  
     }
-    setShowCartModal((prev) => !prev);
   };
 
   return (
-    <nav className="bg-white shadow-lg relative">
-      <div className="container mx-auto p-4 flex justify-between items-center">
-        <Link to="/" className="text-green-600 text-3xl font-bold">Hamro Mart</Link>
-        <div className="space-x-6 flex items-center">
-          <Link to="/" className="text-gray-700 hover:text-green-600 transition duration-300">Home</Link>
-          <Link to="/categoryproduct" className="text-gray-700 hover:text-green-600 transition duration-300">Products</Link>
-          <div className="relative">
-         <Link to = '/testcart'>
+    <nav className="bg-white shadow-lg">
+      <div className="container mx-auto p-4 flex items-center justify-between">
+        
+        <Link to="/" className="text-red-600 text-3xl font-bold">
+          𝓗𝓪𝓶𝓻𝓸 𝓜𝓪𝓻𝓽
+        </Link>
+
+       
+        <div className="flex mx-4 flex justify-center">
+          <div className="relative w-3/4 sm:w-1/2 md:w-1/3 flex items-center justify-center gap-2">
+          <NavLink to = '/search'>
+            <input
+               type="text"
+          value=''
+          onChange=''
+          placeholder="Search for products, cakes, accessories..."
+              className="w-64 p-2 pl-10 rounded-full text-black bg-gray-100 focus:outline-none"
+            />
+            </NavLink>
+            <NavLink to = '/search'>
             <button
               onClick=''
-              className="text-gray-700 hover:text-green-600 transition duration-300"
+              className="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition duration-300"
             >
-              Cart
+              Search
+            </button>
+            </NavLink>
+          </div>
+        </div>
+
+       
+        <div className="space-x-6 flex items-center">
+          <Link to="/" className="text-gray-700 hover:text-red-300 transition duration-300 flex items-center">
+            <FaHome size={30} className="mr-1" /> Home
+          </Link>
+          <Link to="/categoryproduct" className="text-gray-700 hover:text-red-300 transition duration-300 flex items-center">
+            <FaBox size={25} className="mr-1" /> Products
+          </Link>
+
+      
+          <div className="relative">
+          <Link to = '/testcart'>
+            <button
+              onClick={toggleCartMessage}
+              className="text-gray-700 hover:text-red-100 transition duration-300 flex items-center"
+            >
+              <FaShoppingCart size={30} />
             </button>
             </Link>
             {showCartMessage && (
@@ -61,29 +106,39 @@ const Navbar = ({ cartItems = [] }) => {
             )}
           </div>
 
+          
           {isLoggedIn ? (
             <>
-              <Link to="/profile" className="text-gray-700 hover:text-green-600 transition duration-300">Profile</Link>
+              <Link to="/profile" className="text-gray-700 hover:text-green-600 transition duration-300 flex items-center">
+                <FaUser size={20} className="mr-1" /> Profile
+              </Link>
               <button
                 onClick={handleLogoutClick}
-                className="text-gray-700 hover:text-green-600 transition duration-300"
+                className="text-gray-700 hover:text-red-600 transition duration-300 flex items-center"
               >
-                Logout
+                <FaSignOutAlt size={20} className="mr-1" /> Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="text-gray-700 hover:text-green-600 transition duration-300">Login</Link>
-              <Link to="/signup" className="text-gray-700 hover:text-green-600 transition duration-300">Sign Up</Link>
+              <Link to="/login">
+                <button className="bg-red-500 text-white px-4 py-2 w-24 rounded-lg hover:bg-red-300 transition duration-300">
+                  Login
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button className="bg-green-500 text-white px-4 py-2 w-24 rounded-lg hover:bg-green-300 transition duration-300">
+                  Sign Up
+                </button>
+              </Link>
             </>
           )}
         </div>
       </div>
 
-      <CartModal isOpen={showCartModal} onClose={toggleCartModal} cartItems={cartItems} />
-      <LogoutModal 
-        isOpen={showLogoutConfirm} 
-        onClose={handleCancelLogout} 
+      <LogoutModal
+        isOpen={showLogoutConfirm}
+        onClose={handleCancelLogout}
         onLogout={handleLogout} 
       />
     </nav>

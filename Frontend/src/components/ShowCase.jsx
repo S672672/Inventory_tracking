@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-export default function ShowCase({setSearchQuery}) {
+export default function ShowCase() {
   const images = [
-    './src/assets/pictures/bhatbhateni1.jpg',
+    './src/assets/pictures/showcase.jpg',
     './src/assets/pictures/bhatbhateni.jpeg',
     './src/assets/pictures/dessert.jpg',
     './src/assets/pictures/dailyfood.png',
@@ -17,9 +16,9 @@ export default function ShowCase({setSearchQuery}) {
       if (!isHovered) {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images.length + 1));
       }
-    }, 2000); // Change image every 3 seconds for a slower transition
+    }, 2000); 
 
-    return () => clearInterval(interval); // Clear interval on component unmount
+    return () => clearInterval(interval);
   }, [images.length, isHovered]);
 
   const handleMouseEnter = () => {
@@ -33,12 +32,7 @@ export default function ShowCase({setSearchQuery}) {
 
   const adjustedIndex = currentImageIndex >= images.length ? 0 : currentImageIndex;
 
-  const [query, setQuery] = useState("");
 
-  const handleSearch = (e) => {
-    setQuery(e.target.value);
-    setSearchQuery(e.target.value);
-  }
 
   return (
     <div
@@ -72,22 +66,10 @@ export default function ShowCase({setSearchQuery}) {
           ></div>
         ))}
       </div>
-      <div className="flex flex-col lg:mt-80 mt-20 gap-10 absolute inset-0 flex items-center justify-center text-center">
-        <h1 className="text-yellow-300 font-bold text-4xl drop-shadow-lg">
-          Find your needs on <br /> Our own mart
+      <div className="flex flex-col lg:mt-50 mt-20 gap-10 absolute inset-0 flex items-center justify-center text-center">
+        <h1 className="text-white font-bold text-4xl drop-shadow-lg">
+          Find your needs on <br /> <span className='text-red-900'>𝓗𝓪𝓶𝓻𝓸 𝓜𝓪𝓻𝓽</span>
         </h1>
-        <div className="flex flex-col lg:flex-row items-center gap-5 lg:mx-10 mx-5">
-          <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-            className="w-full lg:w-96 h-16 lg:ml-0 ml-5 rounded-xl flex items-center justify-center pl-5"
-            type="text"
-            placeholder="Enter the product you want"
-          />
-          <button className="bg-yellow-400 hover:bg-orange-500 text-black font-bold py-3 px-6 rounded-full text-lg mt-5 lg:mt-0" onClick={handleSearch}>
-            Search
-          </button>
-        </div>
       </div>
     </div>
   );

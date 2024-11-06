@@ -6,17 +6,17 @@ export const CartContext = createContext();
 const cartReducer = (state, action) => {
   switch (action.type) {
       case 'SET_CART':
-          return action.payload; // Set cart from DB
+          return action.payload; 
       case 'ADD_TO_CART':
-          // Check if the item already exists in the cart
+          
           const existingItemIndex = state.findIndex(item => item._id === action.payload._id);
           if (existingItemIndex >= 0) {
-              // Update the quantity of the existing item
+              
               const updatedCart = [...state];
               updatedCart[existingItemIndex].quantity += action.payload.quantity;
               return updatedCart;
           } else {
-              return [...state, action.payload]; // Add new item to cart
+              return [...state, action.payload]; 
           }
       default:
           return state;
@@ -30,7 +30,7 @@ export const CartProvider = ({ children }) => {
       const fetchCart = async () => {
           try {
               const token = localStorage.getItem('token');
-              const userId = localStorage.getItem('userId'); // Ensure userId is retrieved
+              const userId = localStorage.getItem('userId');
               const response = await axios.get(`http://localhost:5000/api/auth/cart`, {
                   headers: { Authorization: `Bearer ${token}` },
               });
@@ -51,8 +51,7 @@ export const CartProvider = ({ children }) => {
               headers: { Authorization: `Bearer ${token}` },
           });
   
-          // Assuming the response contains the full item object
-          dispatch({ type: 'ADD_TO_CART', payload: response.data.item }); // Use the correct field for the added item
+          dispatch({ type: 'ADD_TO_CART', payload: response.data.item });
       } catch (error) {
           console.error('Add to Cart Error:', error);
           alert('Error adding to cart. Please try again.');

@@ -124,9 +124,9 @@ const deleteUser = async (req, res) => {
 };
 
 const getUserAllDetails = async (req, res) => {
-  const { id } = req.params; // Get the product ID from the URL params
+  const { id } = req.params; 
   try {
-    const user = await User.findById(id); // Assuming you are using MongoDB and Mongoose
+    const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

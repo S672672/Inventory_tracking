@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 export default function AdminUserCartDetails() {
-  const { userId } = useParams();  // Get the userId from the URL
+  const { userId } = useParams();  
   const [userDetails, setUserDetails] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ export default function AdminUserCartDetails() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Fetch user details and cart
+        
         const response = await axios.get(`http://localhost:5000/api/auth/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -32,7 +32,7 @@ export default function AdminUserCartDetails() {
   if (loading) return <div className='flex items-center justify-center'><img src='./src/assets/pictures/loading.gif' alt="Loading" /></div>;
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 flex flex-col ">
       <h1 className="text-3xl font-bold mb-6 text-center">User Details and Cart</h1>
 
       {userDetails && (
@@ -58,10 +58,21 @@ export default function AdminUserCartDetails() {
           <div className="space-y-4">
             {cartItems.map((item, index) => (
               <div key={index} className="border-b pb-4 bg-red-100 p-5 rounded-lg">
-                <h4 className="text-xl font-semibold">{item.name}</h4>
-                <p>{item.description}</p>
-                <p className="text-gray-900">Price: ${item.price.toFixed(2)}</p>
-                <p className="text-gray-900">Quantity: {item.quantity}</p>
+                <div className="flex items-center">
+                  {item.image && (
+                    <img
+                      src={`http://localhost:5000/${item.image}`} // Assuming the image is stored on your server
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-full mr-4" // Styling the image (rounded)
+                    />
+                  )}
+                  <div>
+                    <h4 className="text-xl font-semibold">{item.name}</h4>
+                    <p>{item.description}</p>
+                    <p className="text-gray-900">Price: ${item.price.toFixed(2)}</p>
+                    <p className="text-gray-900">Quantity: {item.quantity}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

@@ -32,7 +32,7 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Log item details being added to the cart
+    
     console.log("Item details:", {
       itemId: item._id,
       itemType,
@@ -104,7 +104,7 @@ const getCart = async (req, res) => {
             throw new Error("Unknown item type");
         }
     
-        // If itemDetails is not found, fall back to the stored cart item
+       
         if (!itemDetails) {
           return {
             itemId: cartItem.itemId,
@@ -115,7 +115,8 @@ const getCart = async (req, res) => {
             quantity: cartItem.quantity,
           };
         }
-    
+        const image = itemDetails.imageUrl || itemDetails.image;
+
         return {
           itemId: cartItem.itemId,
           itemType: cartItem.itemType,
@@ -123,6 +124,7 @@ const getCart = async (req, res) => {
           description: itemDetails.description,
           price: itemDetails.price,
           quantity: cartItem.quantity,
+          image
         };
       })
     );
@@ -179,8 +181,8 @@ const clearCart = async (req, res) => {
 };
 
 const updateCartItem = async (req, res) => {
-  const { itemId, itemType, quantity } = req.body; // Get itemId, itemType, and quantity from request body
-  const userId = req.user.id; // Get user ID from authenticated request
+  const { itemId, itemType, quantity } = req.body;
+  const userId = req.user.id; 
 
   try {
     const user = await User.findById(userId);
@@ -188,7 +190,7 @@ const updateCartItem = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the item in the cart
+   
     const cartItem = user.cart.find(
       (item) => item.itemId.toString() === itemId && item.itemType === itemType
     );
@@ -197,15 +199,15 @@ const updateCartItem = async (req, res) => {
       return res.status(404).json({ message: "Item not found in cart" });
     }
 
-    // Update quantity if greater than zero, else remove the item
+    
     if (quantity > 0) {
-      cartItem.quantity = quantity; // Update quantity
+      cartItem.quantity = quantity; 
     } else {
-      user.cart = user.cart.filter((item) => item !== cartItem); // Remove item
+      user.cart = user.cart.filter((item) => item !== cartItem);
     }
 
     await user.save();
-    console.log("Updated cart:", user.cart); // Save changes to the user document
+    console.log("Updated cart:", user.cart); 
     return res
       .status(200)
       .json({ message: "Cart item updated", cart: user.cart });

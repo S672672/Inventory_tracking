@@ -10,9 +10,11 @@ const CakeCard = ({ cake }) => {
         
         const response = await addToCart(cake._id, 'Cake');
         console.log('Item added to cart:', response);
+        alert('Item added to the cart')
         
       } catch (error) {
         console.error('Error adding item to cart:', error.message);
+        alert('Error adding item to the cart')
      
       }
     }
