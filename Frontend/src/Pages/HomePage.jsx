@@ -9,6 +9,7 @@ import BirthdayOfferCard from '../components/BirthdayOffer';
 import FlashSaleCard from '../components/FlashSales';
 import Offerheading from '../components/Offerheading';
 import BrowseCategoriesCard from '../components/CategoryCard';
+
 const Home = () => {
   return (
     <div className='container mx-auto flex flex-col items-center'>

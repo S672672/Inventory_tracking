@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'; 
 import Accessory from '../components/Accessory';
+import BackButton from '../components/BackButton';
 
 export default function AccessoryPage() {
     const [accessory, setAccessory] = useState([]);
@@ -21,6 +22,8 @@ export default function AccessoryPage() {
     }, []);
 
     return (
+        <>
+        <BackButton />
         <div className="container mx-auto py-10 px-4">
             <h2 className="text-3xl font-bold text-center mb-8">Get School Accessories</h2>
             {error && <p className="text-red-500 text-center">{error}</p>}
@@ -30,5 +33,6 @@ export default function AccessoryPage() {
                 ))}
             </div>
         </div>
+        </>
     );
 }

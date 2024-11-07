@@ -10,11 +10,11 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [file, setFile] = useState(null); // State for the profile picture
+  const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Set the selected file
+    setFile(e.target.files[0]); 
   };
 
   const handleSignup = async (e) => {
@@ -25,13 +25,12 @@ function Signup() {
       return;
     }
 
-    // Create FormData to include file upload
     const formData = new FormData();
     formData.append('username', username);
     formData.append('email', email);
     formData.append('password', password);
     if (file) {
-      formData.append('profileImage', file); // Append the profile image
+      formData.append('profileImage', file); 
     }
 
     try {

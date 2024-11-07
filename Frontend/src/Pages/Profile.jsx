@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import BackButton from '../components/BackButton';
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -10,7 +11,7 @@ const Profile = () => {
     const [file, setFile] = useState(null);
     const [profileImage, setProfileImage] = useState('');
     const [previewImage, setPreviewImage] = useState('');
-    const [isUploading, setIsUploading] = useState(false); // New loading state for upload
+    const [isUploading, setIsUploading] = useState(false); 
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -74,7 +75,7 @@ const Profile = () => {
         const formData = new FormData();
         formData.append('profileImage', file);
 
-        setIsUploading(true); // Set loading state to true
+        setIsUploading(true); 
 
         try {
             const response = await axios.put('http://localhost:5000/api/auth/profile', formData, {

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Offerheading from './Offerheading';
 import {addToCart} from '../Api/Api';
 import ProductCard from './ProductCard';
+import BackButton from './BackButton';
 
 export default function CategoryProductList() {
   const [products, setProducts] = useState([]);
@@ -56,6 +57,8 @@ export default function CategoryProductList() {
     : products.filter(product => product.category && product.category.name === selectedCategory);
 
   return (
+    <>
+    <BackButton />
     <div className='flex flex-col gap-10 items-center justify-center'>
     <Offerheading heading='Explore the Products by category'/>
       <div className="flex justify-center my-4">
@@ -112,5 +115,6 @@ export default function CategoryProductList() {
           </div> */}
       </div>
     </div>
+    </>
   );
 }

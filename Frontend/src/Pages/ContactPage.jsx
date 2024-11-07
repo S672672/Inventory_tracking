@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BackButton from '../components/BackButton';
 
 const ContactUs = () => {
   const [result, setResult] = useState('');
@@ -31,6 +32,8 @@ const ContactUs = () => {
   }
 
   return (
+    <>
+    <BackButton />
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="w-2/3 p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Contact Us</h2>
@@ -85,6 +88,7 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

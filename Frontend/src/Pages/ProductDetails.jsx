@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { addToCart } from "../Api/Api"; 
+import BackButton from "../components/BackButton";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -39,9 +40,10 @@ const ProductDetails = () => {
   };
 
   return (
+    <>
+    <BackButton />
     <div className="max-w-6xl mx-auto p-6">
       <div className="flex flex-col md:flex-row gap-10">
-        {/* Product Image */}
         <div className="flex-1">
           <img
             src={`http://localhost:5000/${product.image}`}
@@ -79,6 +81,7 @@ const ProductDetails = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
