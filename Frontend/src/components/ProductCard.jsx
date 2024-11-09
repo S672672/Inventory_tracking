@@ -10,9 +10,11 @@ const ProductCard = ({ product }) => {
       
       const response = await addToCart(product._id, 'Product');
       console.log('Item added to cart:', response);
+      alert('Item has been added to the cart');
       
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
+      alert('Error adding item to the cart');
       
     }
   }

@@ -9,7 +9,7 @@ const CartItem = ({ item, onRemove, onUpdateQuantity }) => {
         <div className="flex items-center space-x-2 mt-2">
           <button
             onClick={() => onUpdateQuantity(item._id, item.quantity - 1)}
-            disabled={item.quantity <= 1} // Disable if quantity is 1
+            disabled={item.quantity <= 1} 
             className="bg-gray-200 text-gray-600 px-2 py-1 rounded focus:outline-none"
           >
             -

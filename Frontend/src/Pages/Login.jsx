@@ -27,7 +27,7 @@ const Login = () => {
   
       toast.success('Login successful! Redirecting...', { position: "top-center" });
   
-      // Clear input fields
+      
       setEmail('');
       setPassword('');
 

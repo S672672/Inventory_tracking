@@ -34,8 +34,10 @@ const ProductDetails = () => {
     try {
       const response = await addToCart(product._id, "Product");
       console.log("Item added to cart:", response);
+      alert("Item added to the cart");
     } catch (error) {
       console.error("Error adding item to cart:", error.message);
+      alert("error adding item to the cart");
     }
   };
 

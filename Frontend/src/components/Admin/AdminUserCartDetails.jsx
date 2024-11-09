@@ -59,13 +59,13 @@ export default function AdminUserCartDetails() {
             {cartItems.map((item, index) => (
               <div key={index} className="border-b pb-4 bg-red-100 p-5 rounded-lg">
                 <div className="flex items-center">
-                  {item.image && (
+                  {/* {item.image && (
                     <img
                       src={`http://localhost:5000/${item.image}`} // Assuming the image is stored on your server
                       alt={item.name}
                       className="w-16 h-16 object-cover rounded-full mr-4" // Styling the image (rounded)
                     />
-                  )}
+                  )} */}
                   <div>
                     <h4 className="text-xl font-semibold">{item.name}</h4>
                     <p>{item.description}</p>

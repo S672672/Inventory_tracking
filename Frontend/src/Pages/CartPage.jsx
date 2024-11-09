@@ -6,7 +6,7 @@ const Cart = () => {
   // const { cartItems, removeFromCart } = useContext(CartContext);
   const { cartItems } = useCart();
   
-  console.log('Rendering cart with items:', cartItems);// Make sure removeFromCart is defined
+  console.log('Rendering cart with items:', cartItems);
 
   if (cartItems.length === 0) {
     return <p>Your cart is empty.</p>;
